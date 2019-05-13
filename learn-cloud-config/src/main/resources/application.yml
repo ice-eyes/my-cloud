@@ -1,0 +1,32 @@
+server:
+  port: 8010
+
+spring:
+  application:
+    name: learn-cloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          # 配置git仓库的地址
+          uri: https://github.com/ice-eyes/config-repo.git
+          # git仓库地址下的相对地址，可以配置多个，用,分割。
+          search-paths: my-cloud
+          # git仓库的账号
+          username:
+          # git仓库的密码
+          password:
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    #心跳检测与续约时间
+    #测试时将值设置小些，保证服务关闭后注册中心能及时踢出服务
+    #每间隔1s，向服务端发送一次心跳，证明自己依然"存活"
+    lease-renewal-interval-in-seconds: 1
+    #超过2秒没有向服务端发送心跳，则服务端判定自己死亡，将该实例踢出注册中心
+    lease-expiration-duration-in-seconds: 2
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8001/eureka/,http://localhost:8001/eureka/,http://localhost:8003/eureka/

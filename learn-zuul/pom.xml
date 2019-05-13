@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>cloud-parent</artifactId>
+        <groupId>org.skier.learn.cloud</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>learn-zuul</artifactId>
+    <description>微服务zuul网关</description>
+
+    <dependencies>
+        <!-- zuul服务网关自身也注册到eureka中，这样从前端过来的请求到达zuul时，可以做自动的路由映射，不需配置-->
+        <!-- 自动映射的规则:http://zull host:zuul port/target instanceId/**-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zuul</artifactId>
+        </dependency>
+        <!-- 路由重试，需要则添加，写操作一般不建议重试-->
+        <!--<dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+        </dependency>-->
+    </dependencies>
+
+</project>
